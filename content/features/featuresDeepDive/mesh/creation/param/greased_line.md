@@ -85,7 +85,11 @@ You can draw more lines at once by using the `instance` option. See the **Instan
 
 You need to specify at least two points to draw a line, obviously.
 
-*Do not use sharp angle connected long lines because they can be distorted by perspective. Use smaller line segments.* There are helper functions available in `BABYLON.GreasedLineTools` for that. See the GreasedLineTools section for more info. Another option is to create two lines and add them to one instance or you can add them as to separate lines like (this approach can cause little quirks where the lines 'connects' to each other when using dash mode - depending on your line width):
+*Do not use sharp angle connected long lines because they can be distorted by perspective. Use smaller line segments.* 
+
+You can find more info on this topic here: https://forum.babylonjs.com/t/greased-line-doesnt-work-with-right-handed-system/42976/16
+
+There are helper functions available in `BABYLON.GreasedLineTools` for that. See the GreasedLineTools section for more info. Another option is to create two lines and add them to one instance or you can add them as to separate lines like (this approach can cause little quirks where the lines 'connects' to each other when using dash mode - depending on your line width):
 
 ```javascript
 const points = [[
@@ -422,7 +426,7 @@ export interface IGreasedLineMaterial {
 
 All other properties must be defined when creating the line.
 
-As you can see in the comment of the `color` public property, the shader gets recompiled if there are specific changes of this property. A real life scenario: You might want to draw textured lines. On a specific event you want colorize the texture. In this case create the line with `color` set to `Color3.White()` and set the `colorMode` to `GreasedLineColorMode.COLOR_MODE_MULTIPLY`. The result will be the same as not setting a `color`. However now you can change the `color` to for example `rgb(0.5, 0.5, 0.5)` to dim the texture colors without shader recompilation. This doesn't apply to `MATERIAL_TYPE_SIMPLE` because this material supports only `GreasedLineColorMode.COLOR_MODE_SET` so there will be no shader recompilation upon changes of the `color` property at all.
+As you can see in the comment of the `color` public property, the shader gets recompiled if there are specific changes of this property. A real life scenario: You might want to draw textured lines. On a specific event you want colorize the texture. In this case create the line with `color` set to `Color3.White()` and set the `colorMode` to `GreasedLineColorMode.COLOR_MODE_MULTIPLY`. The result will be the same as not setting a `color`. However now you can change the `color` to for example `rgb(0.5, 0.5, 0.5)` to dim the texture colors without shader recompilation. `MATERIAL_TYPE_SIMPLE` wil not be recompiled, there is no texture support with this type of material.
 
 **Materials can be shared between line instances.** If you create a line a the other should have the same material options then create the other line(s) by setting it's material option `createAndAssign` material to `false` and simply set the material:
 
@@ -605,7 +609,7 @@ line1.material.emissiveTexture = texture
 
 #### Setting line color using it's material
 
-You have to set a `colorMode` option or set the `color` to `null`. **Setting the color from `null` to a value or setting from a value to `null` will recompile the shader.**
+You have to set a `colorMode` option or set the `color` to `null`. **Setting the color from `null` to a value or setting from a value to `null` will recompile the shader. `MATERIAL_TYPE_SIMPLE` is not recompiled.**
 
 ```javascript
 const points1 = [-6, 0, 0, 6, 0, 0]
@@ -616,7 +620,7 @@ line1.material.emissiveColor = BABYLON.Color3.Red()
 
 #### Glowing line
 
-You have to set a `colorMode` option or set the `color` to `null`. **Setting the color from `null` to a value or setting from a value to `null` will recompile the shader.**
+You have to set a `colorMode` option or set the `color` to `null`. **Setting the color from `null` to a value or setting from a value to `null` will recompile the shader.  `MATERIAL_TYPE_SIMPLE` is not recompiled.**
 
 ```javascript
 const points1 = [-6, 0, 0, 6, 0, 0]
