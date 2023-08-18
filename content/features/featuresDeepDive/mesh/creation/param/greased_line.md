@@ -311,9 +311,9 @@ Rendering resolution. There may be special occasions when you want to change the
 
 ## GreasedLine materials
 
-`GreasedLine` uses `StandardMaterial` or `PBRMaterial` or `ShaderMaterial` (`MATERIAL_TYPE_SIMPLE`) as the base material for rendering. It also uses a `GreasedLinePluginMaterial` which plugs into the base material and provides the additional features of `GreasedLine`.
+`GreasedLine` uses `StandardMaterial` or `PBRMaterial` or `ShaderMaterial` (`MATERIAL_TYPE_SIMPLE`) as the base material for rendering. It also uses a `GreasedLinePluginMaterial` when using `StandardMaterial` or `PBRMaterial` which plugs into the base material and provides the additional features of `GreasedLine`.
 
-If you want to alter the properties of the material you need to use `line.material` but if you want to change the `GreasedLine` specific material properties you need to do it on the `line.greasedMaterial` object. All three materials implements the `IGreasedLineMaterial` interface:
+If you want to alter the properties of the material you need to use `line.material` but if you want to change the `GreasedLine` specific material properties you need to do it on the `line.greasedMaterial` object. When using `MATERIAL_TYPE_SIMPLE` this property returns `line.material` and not the plugin material. All three materials implements the `IGreasedLineMaterial` interface:
 
 ```javascript
 /**
