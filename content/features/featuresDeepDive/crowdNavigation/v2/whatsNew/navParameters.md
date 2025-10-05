@@ -19,8 +19,10 @@ V2 adds a few parameters to help tune navmesh generation and runtime behavior:
 | `maxObstacles`          | `number`               | Max number of dynamic obstacles supported. If > 0, plugin uses a tile cache for dynamic obstacle updating.                   | `128`   |
 | `expectedLayersPerTile` | `number`               | Hint for expected layers per tile — useful for memory/perf tuning in highly layered environments.                            | `32`    |
 | `tileCacheMeshProcess`  | `TileCacheMeshProcess` | Callback used when building tile cache mesh to set `polyAreas` and `polyFlags`. Defaults to all areas = `0` and flags = `1`. | —       |
+| `doNotReverseIndices`   | `boolean`              | If your source mesh/meshes use CCW ordered indices, set this to `true`.                                                      | `false` |
 
 ```ts
+navigationPlugin.createNavMesh(mesh, parameters);
 await navigationPlugin.createNavMeshAsync(mesh, parameters);
 ```
 
